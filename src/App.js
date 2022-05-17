@@ -12,12 +12,16 @@ function App() {
   const [projects, setProjects] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/projects`)
-      .then( response => {
-        setProjects(response.data);
-      })
-      .catch( e => console.log("error getting projects from API...", e))
+    fetchProjects()
   }, []);
+
+  const fetchProjects = () => {
+    axios.get(`${process.env.REACT_APP_API_URL}/projects`)
+    .then( response => {
+      setProjects(response.data);
+    })
+    .catch( e => console.log("error getting projects from API...", e))
+  }
 
   return (
     <div className="App">
@@ -25,9 +29,9 @@ function App() {
 
       <Routes>
         <Route path='/' element={<h1>Welcome</h1>} />
-        <Route path='/projects' element={<ProjectListPage projects={projects} />} />
-        <Route path='/projects/create' element={<AddProjectPage />} />
-        <Route path='/projects/:projectId/edit' element={<EditProjectPage projects={projects} />} />
+        <Route path='/projects' element={<ProjectListPage projects={projects} callBackUpdateProjectsList ={fetchProjects}/>} />
+        <Route path='/projects/create' element={<AddProjectPage callBackUpdateProjectsList ={fetchProjects}/>} />
+        <Route path='/projects/:projectId/edit' element={<EditProjectPage projects={projects} callBackUpdateProjectsList ={fetchProjects}/>} />
       </Routes>
     </div>
   );
