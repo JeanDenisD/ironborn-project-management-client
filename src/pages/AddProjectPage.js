@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddProjectPage.css"
 
-function AddProjectPage() {
+function AddProjectPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -20,8 +20,7 @@ function AddProjectPage() {
 
         axios.post(process.env.REACT_APP_API_URL + "/projects", newProject)
             .then(response => {
-                console.log(response.data)
-
+                props.callBackUpdateProjectsList()
                 navigate("/projects"); // redirect to project list
                 // navigate(`/projects/${response.data._id}`); // redirect to project page
 
