@@ -1,0 +1,6 @@
+.Navbar a{
+    border: 1px solid #333;
+    background-color: rgb(6, 122, 58);
+    padding: 1rem;
+    margin: 2rem;
+}

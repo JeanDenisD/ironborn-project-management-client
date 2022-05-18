@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.error-message {
+  border: 1px solid red;
+  background-color: pink;
+  padding: 1 rem;
+  margin: 1 rem;
+}
