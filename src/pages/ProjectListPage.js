@@ -5,7 +5,13 @@ import "./ProjectListPage.css"
 
 function ProjectListPage(props){
     const deleteProject = (projectId) =>{
-        axios.delete(`${process.env.REACT_APP_API_URL}/projects/${projectId}`)
+
+        const storedToken = localStorage.getItem("authToken");
+
+        axios.delete(
+            `${process.env.REACT_APP_API_URL}/projects/${projectId}`,
+            { headers: { Authorization: `Bearer ${storedToken}` } }
+            )
             .then(response =>{
                 props.callBackUpdateProjectsList();
             })
@@ -17,7 +23,7 @@ function ProjectListPage(props){
             return (
                 <div key={element._id} className="project-summary box">
                     <p>{element.title}</p>
-                    <NavLink to="/">More details</NavLink> |&nbsp;
+                    <NavLink to={`/projects/${element._id}`}>More details</NavLink> |&nbsp;
                     <NavLink to={`/projects/${element._id}/edit`}>Edit</NavLink> |&nbsp;
                     <a href="#" onClick={()=>{deleteProject(element._id)}}>Delete</a>
                 </div>

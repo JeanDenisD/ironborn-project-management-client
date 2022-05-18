@@ -18,7 +18,13 @@ function AddProjectPage(props) {
             description,
         }
 
-        axios.post(process.env.REACT_APP_API_URL + "/projects", newProject)
+        const storedToken = localStorage.getItem('authToken');
+
+        axios.post(
+            process.env.REACT_APP_API_URL + "/projects",
+            newProject,
+            { headers: { Authorization: `Bearer ${storedToken}` } }
+            )
             .then(response => {
                 props.callBackUpdateProjectsList()
                 navigate("/projects"); // redirect to project list

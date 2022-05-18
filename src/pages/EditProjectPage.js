@@ -22,7 +22,12 @@ function EditProjectPage(props) {
             description,
         }
 
-        axios.put(`${process.env.REACT_APP_API_URL}/projects/${projectId}`, newDetails)
+        const storedToken = localStorage.getItem('authToken');
+
+        axios.put(
+            `${process.env.REACT_APP_API_URL}/projects/${projectId}`,
+            newDetails,
+            { headers: { Authorization: `Bearer ${storedToken}` } })
             .then(response => {
                 props.callBackUpdateProjectsList()
                 navigate("/projects"); // redirect to project list
